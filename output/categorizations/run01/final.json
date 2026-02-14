@@ -1,0 +1,600 @@
+{
+  "categories": [
+    {
+      "name": "ConsentDataRetrieval",
+      "description": "Requests for lists of patient consent information where consent has been given, including formatted month/year and consent date fields.",
+      "example_questions": [
+        "I would like a list showing the consent month and year fields, patient id, patient code, center, country and consent date for patients in the study who have given consent. The month and year field format should be ‘YYYY‑MM’. The consent date format should be ‘DD‑MM‑YYYY’."
+      ],
+      "required_fields": [
+        "patient_id",
+        "patient_code",
+        "center",
+        "country",
+        "consent_date"
+      ],
+      "output_format": {
+        "consent_month_year": "YYYY-MM",
+        "consent_date": "DD-MM-YYYY"
+      }
+    },
+    {
+      "name": "ConsentDataRetrieval_NoConsent",
+      "description": "Requests for lists of patient information where consent has NOT been provided, including formatted month/year (derived from study period) and consent date placeholders.",
+      "example_questions": [
+        "Vorrei una lista che mostri i campi mese e anno del consenso, id paziente, codice paziente, centro, paese e data del consenso per i pazienti dello studio che non abbiano fornito il consenso. Formato del campo mese e anno deve essere ‘YYYY-MM’. Formato della data di consenso deve essere ‘DD‑MM‑YYYY’."
+      ],
+      "required_fields": [
+        "patient_id",
+        "patient_code",
+        "center",
+        "country",
+        "consent_month_year"
+      ],
+      "output_format": {
+        "consent_month_year": "YYYY-MM",
+        "consent_date_placeholder": "DD‑MM‑YYYY"
+      }
+    },
+    {
+      "name": "UserDataRetrieval",
+      "description": "Requests for lists of users associated with centers, including center country and user profile information.",
+      "example_questions": [
+        "I would like a list of users for centers that shows both the country of the center and the user profile.",
+        "Give me all users, their centers, the center's country, and each user's role/profile."
+      ],
+      "required_fields": [
+        "user_id",
+        "user_name",
+        "center",
+        "country",
+        "user_profile"
+      ],
+      "output_format": {
+        "user_id": "integer",
+        "user_name": "string",
+        "center": "string",
+        "country": "string",
+        "user_profile": "string"
+      }
+    },
+    {
+      "name": "RandomizationDataRetrieval",
+      "description": "Requests for lists of patients who have been randomized in the study, including relevant identifiers and randomization details.",
+      "example_questions": [
+        "Which patients were randomized?",
+        "Give me a list of all randomized patients with their IDs and randomization dates."
+      ],
+      "required_fields": [
+        "patient_id",
+        "patient_code",
+        "randomization_date",
+        "randomization_group"
+      ],
+      "output_format": {
+        "patient_id": "integer",
+        "patient_code": "string",
+        "randomization_date": "DD‑MM‑YYYY",
+        "randomization_group": "string"
+      }
+    },
+    {
+      "name": "RandomizationCountTotal",
+      "description": "Requests for the total number of patients that have been randomized, without needing detailed per‑patient information.",
+      "example_questions": [
+        "Quanti pazienti sono stati randomizzati in totale?",
+        "How many patients have been randomized overall?"
+      ],
+      "required_fields": [
+        "randomized_patient_count"
+      ],
+      "output_format": {
+        "randomized_patient_count": "integer"
+      }
+    },
+    {
+      "name": "UserStatusRetrieval",
+      "description": "Requests for lists of users filtered by their account status (e.g., blocked, active, suspended).",
+      "example_questions": [
+        "Which users have been blocked?",
+        "Give me a list of all active users.",
+        "Show users whose accounts are suspended."
+      ],
+      "required_fields": [
+        "user_id",
+        "user_name",
+        "status"
+      ],
+      "output_format": {
+        "user_id": "integer",
+        "user_name": "string",
+        "status": "string"
+      }
+    },
+    {
+      "name": "VisitDataRetrieval",
+      "description": "Requests for visit information related to a specific patient or set of patients, including visit dates, types, and associated data.",
+      "example_questions": [
+        "Give me all visits for patient 'IT1001-01'.",
+        "List the visit dates and types for patient ID 12345."
+      ],
+      "required_fields": [
+        "patient_id",
+        "visit_id",
+        "visit_date",
+        "visit_type"
+      ],
+      "output_format": {
+        "patient_id": "string",
+        "visit_id": "integer",
+        "visit_date": "DD‑MM‑YYYY",
+        "visit_type": "string"
+      }
+    },
+    {
+      "name": "ConsentSignatureRetrieval",
+      "description": "Requests for lists of patients by center that include consent status, the date the consent was signed, and the user who signed it.",
+      "example_questions": [
+        "I would like a list of patients by center that indicates whether a patient was signed, when it was signed, and by whom it was signed."
+      ],
+      "required_fields": [
+        "patient_id",
+        "patient_code",
+        "center",
+        "consent_status",
+        "consent_signed_date",
+        "signed_by_user"
+      ],
+      "output_format": {
+        "patient_id": "integer",
+        "patient_code": "string",
+        "center": "string",
+        "consent_status": "boolean",
+        "consent_signed_date": "DD‑MM‑YYYY",
+        "signed_by_user": "string"
+      }
+    },
+    {
+      "name": "UserLoginDataRetrieval",
+      "description": "Requests for lists of user login events, including username, result of the login attempt (success/failure), and timestamp of the last login.",
+      "example_questions": [
+        "I would like a list of user logins that shows the username, login result and last login.",
+        "Give me all users with their most recent login status and time."
+      ],
+      "required_fields": [
+        "user_name",
+        "login_result",
+        "last_login_timestamp"
+      ],
+      "output_format": {
+        "user_name": "string",
+        "login_result": "string",
+        "last_login_timestamp": "DD‑MM‑YYYY HH:MM:SS"
+      }
+    },
+    {
+      "name": "AmendmentDataRetrieval",
+      "description": "Requests for amendment records related to a specific patient or set of patients, including amendment type, date, and description.",
+      "example_questions": [
+        "Can you give me all the amendments that occurred for patient '01-001'?",
+        "List amendment dates and types for patient ID 12345."
+      ],
+      "required_fields": [
+        "patient_id",
+        "amendment_id",
+        "amendment_type",
+        "amendment_date",
+        "description"
+      ],
+      "output_format": {
+        "patient_id": "string",
+        "amendment_id": "integer",
+        "amendment_type": "string",
+        "amendment_date": "DD‑MM‑YYYY",
+        "description": "string"
+      }
+    },
+    {
+      "name": "ClarificationDataRetrieval",
+      "description": "Requests for clarification records (e.g., data clarifications, query responses) associated with a specific patient.",
+      "example_questions": [
+        "Mi dai tutti le 'clarifications' avvenute per il paziente '01-001'?",
+        "Give me all clarifications for patient ID 12345."
+      ],
+      "required_fields": [
+        "patient_id",
+        "clarification_id",
+        "clarification_date",
+        "clarification_type",
+        "details"
+      ],
+      "output_format": {
+        "patient_id": "string",
+        "clarification_id": "integer",
+        "clarification_date": "DD‑MM‑YYYY",
+        "clarification_type": "string",
+        "details": "string"
+      }
+    },
+    {
+      "name": "AllClarificationsRetrieval",
+      "description": "Requests for a complete list of all clarification records across all patients, without requiring a patient filter.",
+      "example_questions": [
+        "Could you provide me with a complete list of all the clarifications?",
+        "Give me every clarification in the system."
+      ],
+      "required_fields": [
+        "clarification_id",
+        "patient_id",
+        "clarification_date",
+        "clarification_type",
+        "details"
+      ],
+      "output_format": {
+        "clarification_id": "integer",
+        "patient_id": "string",
+        "clarification_date": "DD‑MM‑YYYY",
+        "clarification_type": "string",
+        "details": "string"
+      }
+    },
+    {
+      "name": "PatientListByCenter",
+      "description": "Requests for a list of all patients belonging to a specific center, without additional consent or randomization filters.",
+      "example_questions": [
+        "Can you give me all the patients at the center named '1001'?",
+        "Show every patient enrolled in center 2002."
+      ],
+      "required_fields": [
+        "patient_id",
+        "patient_code",
+        "center"
+      ],
+      "output_format": {
+        "patient_id": "integer",
+        "patient_code": "string",
+        "center": "string"
+      }
+    },
+    {
+      "name": "VisitStatusAggregation",
+      "description": "Requests for aggregation of visits based on their completion status (e.g., not started, partially filled, fully filled) and grouping by that status.",
+      "example_questions": [
+        "Which visits are to be filled out, partially filled out or fully filled out? Grouped by status",
+        "Show the count of visits per fill status."
+      ],
+      "required_fields": [
+        "visit_id",
+        "patient_id",
+        "fill_status"
+      ],
+      "output_format": {
+        "visit_id": "integer",
+        "patient_id": "string",
+        "fill_status": "string"
+      }
+    },
+    {
+      "name": "VisitLogRetrieval",
+      "description": "Requests for raw log entries related to a specific visit type and patient, using the logs and log_values tables.",
+      "example_questions": [
+        "dammi tutti i logs della visita informed_consent per il paziente 20-001, usa la tabella logs e log_values",
+        "Get all log records for the screening visit of patient ID 12345."
+      ],
+      "required_fields": [
+        "patient_id",
+        "visit_type",
+        "log_timestamp",
+        "log_message"
+      ],
+      "output_format": {
+        "patient_id": "string",
+        "visit_type": "string",
+        "log_timestamp": "DD‑MM‑YYYY HH:MM:SS",
+        "log_message": "string"
+      }
+    },
+    {
+      "name": "AutomaticClarificationRetrieval",
+      "description": "Requests for a list of clarifications that were generated automatically by the system (e.g., auto‑generated queries or alerts) across all patients.",
+      "example_questions": [
+        "I would like a list of all the automatic clarifications.",
+        "Show every auto‑generated clarification in the database."
+      ],
+      "required_fields": [
+        "clarification_id",
+        "patient_id",
+        "clarification_date",
+        "clarification_type",
+        "details",
+        "generation_method"
+      ],
+      "output_format": {
+        "clarification_id": "integer",
+        "patient_id": "string",
+        "clarification_date": "DD‑MM‑YYYY",
+        "clarification_type": "string",
+        "details": "string",
+        "generation_method": "string"
+      }
+    },
+    {
+      "name": "ManualClarificationRetrieval",
+      "description": "Requests for manually created clarification records (non‑automatic) across all patients, optionally filtered by status or date ranges.",
+      "example_questions": [
+        "Can you give me all the manual clarifications closed in September 2024?",
+        "Show manually entered clarifications that were resolved in the last month."
+      ],
+      "required_fields": [
+        "clarification_id",
+        "patient_id",
+        "clarification_date",
+        "clarification_type",
+        "details",
+        "creation_method"
+      ],
+      "output_format": {
+        "clarification_id": "integer",
+        "patient_id": "string",
+        "clarification_date": "DD‑MM‑YYYY",
+        "clarification_type": "string",
+        "details": "string",
+        "creation_method": "string"
+      }
+    },
+    {
+      "name": "OpenClarificationsByCenter",
+      "description": "Requests for clarification records that are still open (unresolved) filtered by a specific center identifier.",
+      "example_questions": [
+        "What clarifications are still open for 1001?",
+        "List all unresolved clarifications for center 2002."
+      ],
+      "required_fields": [
+        "clarification_id",
+        "patient_id",
+        "center",
+        "clarification_date",
+        "clarification_type",
+        "details",
+        "status"
+      ],
+      "output_format": {
+        "clarification_id": "integer",
+        "patient_id": "string",
+        "center": "string",
+        "clarification_date": "DD‑MM‑YYYY",
+        "clarification_type": "string",
+        "details": "string",
+        "status": "string"
+      }
+    },
+    {
+      "name": "OpenClarificationsAll",
+      "description": "Requests for all clarification records that are still pending or unresolved across the entire study, without filtering by center.",
+      "example_questions": [
+        "Can you tell me which clarifications are still awaiting a response/pending?",
+        "Show all open clarifications in the system."
+      ],
+      "required_fields": [
+        "clarification_id",
+        "patient_id",
+        "center",
+        "clarification_date",
+        "clarification_type",
+        "details",
+        "status"
+      ],
+      "output_format": {
+        "clarification_id": "integer",
+        "patient_id": "string",
+        "center": "string",
+        "clarification_date": "DD‑MM‑YYYY",
+        "clarification_type": "string",
+        "details": "string",
+        "status": "string"
+      }
+    },
+    {
+      "name": "ResolvedClarificationsByCenter",
+      "description": "Requests for clarification records that have been resolved/closed, grouped by center.",
+      "example_questions": [
+        "Which clarifications have been resolved? Divide them by center."
+      ],
+      "required_fields": [
+        "clarification_id",
+        "patient_id",
+        "center",
+        "clarification_date",
+        "clarification_type",
+        "details",
+        "status"
+      ],
+      "output_format": {
+        "center": "string",
+        "clarifications": [
+          {
+            "clarification_id": "integer",
+            "patient_id": "string",
+            "clarification_date": "DD‑MM‑YYYY",
+            "clarification_type": "string",
+            "details": "string",
+            "status": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OpenClarificationsGroupedByCenter",
+      "description": "Requests for clarification records that are still open (unresolved) and need to be presented grouped by center.",
+      "example_questions": [
+        "Which clarifications are still open? Divide them by center."
+      ],
+      "required_fields": [
+        "clarification_id",
+        "patient_id",
+        "center",
+        "clarification_date",
+        "clarification_type",
+        "details",
+        "status"
+      ],
+      "output_format": {
+        "center": "string",
+        "clarifications": [
+          {
+            "clarification_id": "integer",
+            "patient_id": "string",
+            "clarification_date": "DD‑MM‑YYYY",
+            "clarification_type": "string",
+            "details": "string",
+            "status": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ManualOpenClarificationsByCenter",
+      "description": "Requests for manually created clarification records that are still pending (open) and filtered by a specific center.",
+      "example_questions": [
+        "I would like a list of manual clarifications pending for patients at Site 1001.",
+        "Show all open manual clarifications for center 2002."
+      ],
+      "required_fields": [
+        "clarification_id",
+        "patient_id",
+        "center",
+        "clarification_date",
+        "clarification_type",
+        "details",
+        "status",
+        "creation_method"
+      ],
+      "output_format": {
+        "clarification_id": "integer",
+        "patient_id": "string",
+        "center": "string",
+        "clarification_date": "DD‑MM‑YYYY",
+        "clarification_type": "string",
+        "details": "string",
+        "status": "string",
+        "creation_method": "string"
+      }
+    },
+    {
+      "name": "AllPatientsRetrieval",
+      "description": "Requests for a complete list of all patients in the study without any additional filters.",
+      "example_questions": [
+        "I would like a list of all the patients",
+        "Give me every patient enrolled in the study."
+      ],
+      "required_fields": [
+        "patient_id",
+        "patient_code"
+      ],
+      "output_format": {
+        "patient_id": "integer",
+        "patient_code": "string"
+      }
+    },
+    {
+      "name": "ClosedClarificationsRetrieval",
+      "description": "Requests for all clarification records that have been closed/resolved, without grouping by center.",
+      "example_questions": [
+        "Show me the clarifications that have been closed",
+        "Give a list of all closed clarifications."
+      ],
+      "required_fields": [
+        "clarification_id",
+        "patient_id",
+        "center",
+        "clarification_date",
+        "clarification_type",
+        "details",
+        "status"
+      ],
+      "output_format": {
+        "clarification_id": "integer",
+        "patient_id": "string",
+        "center": "string",
+        "clarification_date": "DD‑MM‑YYYY",
+        "clarification_type": "string",
+        "details": "string",
+        "status": "string"
+      }
+    },
+    {
+      "name": "EnrollmentCountByTimestamp",
+      "description": "Requests for counting the number of patients enrolled, grouped by the timestamp of their insertion into the eCRF.",
+      "example_questions": [
+        "Conteggio dei pazienti arruolati secondo timestamp di inserimento in eCRF",
+        "How many patients were enrolled per day based on the eCRF insertion timestamp?"
+      ],
+      "required_fields": [
+        "enrollment_timestamp",
+        "patient_count"
+      ],
+      "output_format": {
+        "enrollment_timestamp": "YYYY‑MM‑DD HH:MM:SS",
+        "patient_count": "integer"
+      }
+    },
+    {
+      "name": "SiteListRetrieval",
+      "description": "Requests for a list of all sites/centers in the study, optionally including basic attributes such as site identifier and country.",
+      "example_questions": [
+        "List all sites",
+        "Give me a list of every site in the study"
+      ],
+      "required_fields": [
+        "site_id",
+        "site_name",
+        "country"
+      ],
+      "output_format": {
+        "site_id": "string",
+        "site_name": "string",
+        "country": "string"
+      }
+    },
+    {
+      "name": "VisitStatusRetrieval",
+      "description": "Requests for a list of visits filtered by their status (e.g., closed, open, pending) and including visit identifiers.",
+      "example_questions": [
+        "List all the visit in status closed including ids",
+        "Show visits that are marked as completed with their IDs."
+      ],
+      "required_fields": [
+        "visit_id",
+        "patient_id",
+        "status"
+      ],
+      "output_format": {
+        "visit_id": "integer",
+        "patient_id": "string",
+        "status": "string"
+      }
+    },
+    {
+      "name": "OpenVisitDetails",
+      "description": "Requests for a list of visits that are currently open, including site (center) information and visit label/type.",
+      "example_questions": [
+        "List all the open visits including site and visit labels",
+        "Show every open visit with its site name and visit type."
+      ],
+      "required_fields": [
+        "visit_id",
+        "patient_id",
+        "status",
+        "site",
+        "visit_label"
+      ],
+      "output_format": {
+        "visit_id": "integer",
+        "patient_id": "string",
+        "status": "string",
+        "site": "string",
+        "visit_label": "string"
+      }
+    }
+  ]
+}

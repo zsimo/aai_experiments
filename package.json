@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "axios": "^1.13.4"
+    "axios": "^1.13.4",
+    "env-to-config": "^1.4.1"
   }
 }
