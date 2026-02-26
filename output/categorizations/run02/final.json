@@ -39,10 +39,10 @@
       }
     },
     {
-      "name": "count_non_consented_patients",
-      "description": "Count the total number of patients who have NOT given consent for the study.",
+      "name": "count_non_consent_patients",
+      "description": "Count the total number of patients that have NOT given consent for the study.",
       "required_fields": [
-        "non_consented_patient_count"
+        "non_consent_patient_count"
       ],
       "filters": {
         "consent_given": false
@@ -796,7 +796,7 @@
     },
     {
       "name": "list_closed_visits_with_site_and_label",
-      "description": "Retrieve all closed visit records including site information and the visit label.",
+      "description": "Retrieve all visit records that have a status of closed, including site and visit label information.",
       "required_fields": [
         "visit_id",
         "patient_id",
@@ -812,7 +812,7 @@
     },
     {
       "name": "list_closed_visits_with_center_and_label",
-      "description": "Retrieve all closed visit records including center information and the visit label.",
+      "description": "Retrieve all visit records that have a status of false, including center and visit label information.",
       "required_fields": [
         "visit_id",
         "patient_id",
